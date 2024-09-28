@@ -1,0 +1,68 @@
+Table User {
+  id integer PK
+  name varchar
+  email varchar
+  password varchar
+  photo varchar
+}
+
+Table Quiz {
+  id integer PK
+  title varchar
+  description varchar
+  author int
+  category_id integer
+  created_at date
+}
+
+Table Question {
+  id integer PK
+  quiz_id integer
+  question_text varchar
+}
+
+Table Answer{
+  id integer PK
+  question_id integer
+  is_correct bool
+}
+
+Table Result {
+  id integer PK
+  user_id  integer
+  quiz_id integer
+  score integer
+  taken_at datetime
+}
+
+Table Category {
+  id integer PK
+  name varchar
+}
+
+Table QuizTag {
+  id integer PK
+  quiz_id integer
+  tag_id integer
+}
+
+Table Tag {
+  id integer PK
+  name varchar
+}
+
+Ref: "Question"."quiz_id" > "Quiz"."id"
+
+Ref: "Answer"."question_id" > "Question"."id"
+
+Ref: "Result"."user_id" > "User"."id"
+
+Ref: "Result"."quiz_id" - "Quiz"."id"
+
+Ref: "Quiz"."author" < "User"."id"
+
+Ref: "QuizTag"."tag_id" > "Tag"."id"
+
+Ref: "Quiz"."category_id" > "Category"."id"
+
+Ref: "QuizTag"."quiz_id" > "Quiz"."id"
